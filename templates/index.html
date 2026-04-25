@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MENU 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+<div class="contenedor-principal-web">
+
+    <header class="navbar-principal">
+        <div class="navbar-contenedor">
+            <div class="navbar-izquierda">
+                <div class="espacio-logo">
+                    <i class="fas fa-utensils" style="color: #ccc;"></i> 
+                </div>
+            </div>
+            <div class="navbar-centro">
+                <h1 class="titulo-menu">MENU</h1>
+            </div>
+            <div class="navbar-derecha">
+                <button class="carrito-icon-btn" onclick="irAlCarrito()">
+                    <span class="emoji-carrito">🛒</span>
+                    <span id="contador" class="badge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="cuerpo-menu">
+        {% for nombre_cat, lista_productos in categorias.items() %}
+        <section class="seccion-categoria">
+            <h2 class="titulo-categoria">{{ nombre_cat }}</h2>
+            
+            <div class="grid-productos">
+                {% for p in lista_productos %}
+                <div class="card">
+                    <div class="img-container">
+                        <img src="{{ p.imagen }}" alt="{{ p.nombre }}" onerror="this.src='https://via.placeholder.com/150?text=Cargando...'">
+                    </div>
+                    
+                    <div class="info-card">
+                        <p class="nombre-producto">{{ p.nombre }}</p>
+                        <span class="precio-producto">${{ p.precio }}</span>
+                    </div>
+
+                    <button class="btn-comprar" onclick="agregarProducto('{{ p.nombre }}', {{ p.precio }}, '{{ p.imagen }}')">
+                        Agregar a carrito
+                    </button>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endfor %}
+    </main>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/carrito_logic.js') }}"></script>
+
+</body>
+</html>

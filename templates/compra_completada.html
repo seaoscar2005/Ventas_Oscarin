@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Pedido Confirmado! - MENU 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="body-exito">
+
+<div class="contenedor-principal-web flex-centrado">
+    <div class="card-exito">
+        <div class="icono-check">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        
+        <h1>¡Gracias por tu pedido!</h1>
+        <p class="subtitulo-exito">Tu orden ha sido registrada con éxito y ya la estamos preparando.</p>
+        
+        <hr class="divisor-exito">
+
+        <div class="seccion-encuesta">
+            <h3>¿Qué tal nuestro servicio?</h3>
+            <p class="instruccion-encuesta">Tu opinión nos ayuda a mejorar</p>
+            
+            <div class="rating-estrellas">
+                <input type="radio" name="rating" id="star5" value="5"><label for="star5"><i class="fas fa-star"></i></label>
+                <input type="radio" name="rating" id="star4" value="4"><label for="star4"><i class="fas fa-star"></i></label>
+                <input type="radio" name="rating" id="star3" value="3"><label for="star3"><i class="fas fa-star"></i></label>
+                <input type="radio" name="rating" id="star2" value="2"><label for="star2"><i class="fas fa-star"></i></label>
+                <input type="radio" name="rating" id="star1" value="1"><label for="star1"><i class="fas fa-star"></i></label>
+            </div>
+
+            <div class="input-sugerencia-group">
+                <label for="sugerencia-producto">¿Qué nuevo producto o mejora te gustaría ver?</label>
+                <input type="text" id="sugerencia-producto" placeholder="Ej: Postres, bebidas, snacks...">
+            </div>
+
+            <button class="btn-enviar-opinion" onclick="enviarEncuesta()">
+                ENVIAR OPINIÓN
+            </button>
+        </div>
+
+        <a href="/" class="btn-volver-inicio">
+            <i class="fas fa-home"></i> VOLVER AL INICIO
+        </a>
+    </div>
+</div>
+
+<script>
+    async function enviarEncuesta() {
+    const rating = document.querySelector('input[name="rating"]:checked')?.value;
+    const sugerencia = document.getElementById('sugerencia-producto').value;
+    
+    if(!rating && !sugerencia) {
+        alert("Por favor, califícanos o danos una sugerencia.");
+        return;
+    }
+
+    // Llamada a tu servidor Flask
+    const response = await fetch('/enviar_opinion', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rating: rating, sugerencia: sugerencia })
+    });
+
+    const result = await response.json();
+
+    if(result.success) {
+        document.querySelector('.seccion-encuesta').innerHTML = "<h3>¡Gracias por tu opinión!</h3><p>Tu mensaje nos ayuda a mejorar.</p>";
+    } else {
+        alert("Hubo un error al enviar tu opinión, intenta más tarde.");
+    }
+}
+</script>
+
+</body>
+</html>

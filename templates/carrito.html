@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Carrito - MENU 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="body-carrito">
+
+<div class="contenedor-principal-web">
+    <header class="navbar-principal">
+        <div class="navbar-contenedor">
+            <div class="navbar-izquierda">
+                <a href="/" class="btn-regresar-icono">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="navbar-centro">
+                <h1 class="titulo-menu">MI CARRITO</h1>
+            </div>
+            <div class="navbar-derecha">
+                <div style="width: 30px;"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="contenido-carrito">
+        <div class="layout-carrito">
+            <div class="columna-productos" id="lista-carrito">
+                </div>
+
+            <div class="columna-resumen">
+                <div class="cuadro-resumen">
+                    <h3>Resumen de orden</h3>
+                    <div class="fila-resumen">
+                        <span>Productos:</span>
+                        <span id="subtotal-items">0</span>
+                    </div>
+                    <div class="fila-resumen total">
+                        <span>Total:</span>
+                        <span id="total-precio">$0</span>
+                    </div>
+                    <button class="btn-finalizar" onclick="irAEntrega()">
+                        CONTINUAR COMPRA <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <a href="/" class="btn-seguir-comprando">Agregar más productos</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="{{ url_for('static', filename='js/carrito_logic.js') }}"></script>
+</body>
+</html>
